@@ -39,10 +39,11 @@ Preferred communication style: Simple, everyday language.
 - Middleware for JSON parsing, URL encoding, and request logging
 
 **API Structure**
-- Resource-based endpoints: `/api/tournaments`, `/api/teams`, `/api/players`, `/api/matches`, `/api/match-stats`
+- Resource-based endpoints: `/api/tournaments`, `/api/teams`, `/api/players`, `/api/matches`, `/api/match-stats`, `/api/products`, `/api/orders`, `/api/courts`, `/api/media`, `/api/inquiries`, `/api/brand-assets`
 - Nested routes for related resources (e.g., `/api/tournaments/:id/teams`)
 - Standardized error handling with appropriate HTTP status codes
 - Request/response logging middleware that tracks duration and captures JSON responses
+- Zod validation on POST/PATCH endpoints for data integrity
 
 **Data Layer**
 - Storage abstraction layer (IStorage interface) separating business logic from data access
@@ -61,6 +62,12 @@ Preferred communication style: Simple, everyday language.
 - **players**: Individual player profiles with team assignments, jersey numbers, and positions
 - **matches**: Game records linking two teams with scores, MVP designation, court assignments, and round information
 - **matchStats**: Granular player statistics per match (points, assists, rebounds, steals, blocks)
+- **products**: Merchandise catalog with name, price, category, stock status, and images
+- **orders**: Customer orders tracking product purchases and quantities
+- **courts**: Basketball court locations with availability, contact info, and sponsor visibility metrics
+- **media**: Tournament videos and photos with tagging and tournament association
+- **inquiries**: Corporate and B2B partnership inquiry forms from sponsors
+- **brandAssets**: Sponsor logos, banners, and promotional materials
 
 **Relationships**
 - One tournament has many teams
@@ -108,6 +115,13 @@ Preferred communication style: Simple, everyday language.
 - BracketGenerator: Automatic bracket creation based on registered teams
 - LiveMatchDashboard: Real-time score entry and MVP selection
 
+**New MVP Modules (October 2025)**
+- CourtsPage (Training Hall): Court directory with city/university filtering, availability status, and booking
+- MediaHubPage: Video/photo upload and gallery with tagging and tournament filtering
+- DevelopmentCenterPage: Player performance stats, skill progress tracking, and training schedule
+- SponsorInquiryForm: Corporate and B2B partnership inquiry forms with email/phone/message fields
+- MerchShop: Product catalog with shopping cart integration (6 seeded products)
+
 **Design Rationale**: Component-based architecture with clear separation of concerns. Shared components reduce duplication while role-specific dashboards provide tailored experiences. Forms use react-hook-form with Zod validation for consistent error handling.
 
 ## External Dependencies
@@ -116,6 +130,8 @@ Preferred communication style: Simple, everyday language.
 - **Neon Serverless PostgreSQL**: Serverless Postgres with WebSocket support for edge deployments
 - Connection pooling via `@neondatabase/serverless`
 - Database URL required via environment variable `DATABASE_URL`
+- SSL configuration: Development mode disables certificate validation for Neon connection (NODE_TLS_REJECT_UNAUTHORIZED=0)
+- Seeded with 6 products and 6 courts for demo/testing purposes
 
 ### UI Libraries
 - **Radix UI**: Unstyled, accessible component primitives (dialog, dropdown, tooltip, tabs, etc.)

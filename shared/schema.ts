@@ -171,3 +171,125 @@ export const matchStatsRelations = relations(matchStats, ({ one }) => ({
     references: [players.id],
   }),
 }));
+
+// Merchandise Module Schemas
+export const products = pgTable("products", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  description: text("description"),
+  price: integer("price").notNull(),
+  category: text("category").notNull(),
+  image: text("image"),
+  inStock: integer("in_stock").notNull().default(1),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertProductSchema = createInsertSchema(products).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type Product = typeof products.$inferSelect;
+
+export const orders = pgTable("orders", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id"),
+  items: text("items").notNull(),
+  total: integer("total").notNull(),
+  status: text("status").notNull().default('pending'),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertOrderSchema = createInsertSchema(orders).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertOrder = z.infer<typeof insertOrderSchema>;
+export type Order = typeof orders.$inferSelect;
+
+// Court Module Schemas
+export const courts = pgTable("courts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  location: text("location").notNull(),
+  university: text("university"),
+  city: text("city").notNull(),
+  latitude: text("latitude"),
+  longitude: text("longitude"),
+  availability: text("availability").notNull().default('available'),
+  contactInfo: text("contact_info"),
+  sponsorVisibility: integer("sponsor_visibility").notNull().default(0),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertCourtSchema = createInsertSchema(courts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertCourt = z.infer<typeof insertCourtSchema>;
+export type Court = typeof courts.$inferSelect;
+
+// Media Module Schemas
+export const media = pgTable("media", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  type: text("type").notNull(),
+  url: text("url").notNull(),
+  thumbnailUrl: text("thumbnail_url"),
+  tournamentId: varchar("tournament_id"),
+  teamId: varchar("team_id"),
+  sponsorId: varchar("sponsor_id"),
+  tags: text("tags"),
+  uploadedBy: varchar("uploaded_by"),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertMediaSchema = createInsertSchema(media).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertMedia = z.infer<typeof insertMediaSchema>;
+export type Media = typeof media.$inferSelect;
+
+// Sponsor Module Schemas
+export const inquiries = pgTable("inquiries", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  type: text("type").notNull(),
+  companyName: text("company_name").notNull(),
+  contactName: text("contact_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  message: text("message").notNull(),
+  status: text("status").notNull().default('new'),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertInquirySchema = createInsertSchema(inquiries).omit({
+  id: true,
+  createdAt: true,
+  status: true,
+});
+
+export type InsertInquiry = z.infer<typeof insertInquirySchema>;
+export type Inquiry = typeof inquiries.$inferSelect;
+
+export const brandAssets = pgTable("brand_assets", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sponsorId: varchar("sponsor_id").notNull(),
+  name: text("name").notNull(),
+  type: text("type").notNull(),
+  url: text("url").notNull(),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertBrandAssetSchema = createInsertSchema(brandAssets).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertBrandAsset = z.infer<typeof insertBrandAssetSchema>;
+export type BrandAsset = typeof brandAssets.$inferSelect;

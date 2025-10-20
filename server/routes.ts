@@ -6,7 +6,13 @@ import {
   insertTeamSchema,
   insertPlayerSchema,
   insertMatchSchema,
-  insertMatchStatsSchema
+  insertMatchStatsSchema,
+  insertProductSchema,
+  insertOrderSchema,
+  insertCourtSchema,
+  insertMediaSchema,
+  insertInquirySchema,
+  insertBrandAssetSchema
 } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -276,6 +282,196 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(stats);
     } catch (error) {
       res.status(500).json({ message: "Failed to update match stats" });
+    }
+  });
+
+  // Product Routes
+  app.get("/api/products", async (req, res) => {
+    try {
+      const products = await storage.getProducts();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch products" });
+    }
+  });
+
+  app.get("/api/products/:id", async (req, res) => {
+    try {
+      const product = await storage.getProduct(req.params.id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch product" });
+    }
+  });
+
+  app.post("/api/products", async (req, res) => {
+    try {
+      const validated = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(validated);
+      res.status(201).json(product);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid product data" });
+    }
+  });
+
+  // Order Routes
+  app.get("/api/orders", async (req, res) => {
+    try {
+      const orders = await storage.getOrders();
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch orders" });
+    }
+  });
+
+  app.post("/api/orders", async (req, res) => {
+    try {
+      const validated = insertOrderSchema.parse(req.body);
+      const order = await storage.createOrder(validated);
+      res.status(201).json(order);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid order data" });
+    }
+  });
+
+  // Court Routes
+  app.get("/api/courts", async (req, res) => {
+    try {
+      const courts = await storage.getCourts();
+      res.json(courts);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch courts" });
+    }
+  });
+
+  app.get("/api/courts/:id", async (req, res) => {
+    try {
+      const court = await storage.getCourt(req.params.id);
+      if (!court) {
+        return res.status(404).json({ message: "Court not found" });
+      }
+      res.json(court);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch court" });
+    }
+  });
+
+  app.post("/api/courts", async (req, res) => {
+    try {
+      const validated = insertCourtSchema.parse(req.body);
+      const court = await storage.createCourt(validated);
+      res.status(201).json(court);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid court data" });
+    }
+  });
+
+  app.patch("/api/courts/:id", async (req, res) => {
+    try {
+      const validated = insertCourtSchema.partial().parse(req.body);
+      const court = await storage.updateCourt(req.params.id, validated);
+      if (!court) {
+        return res.status(404).json({ message: "Court not found" });
+      }
+      res.json(court);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid court data" });
+    }
+  });
+
+  // Media Routes
+  app.get("/api/media", async (req, res) => {
+    try {
+      const { tournamentId } = req.query;
+      if (tournamentId && typeof tournamentId === 'string') {
+        const media = await storage.getMediaByTournament(tournamentId);
+        return res.json(media);
+      }
+      const media = await storage.getMedia();
+      res.json(media);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch media" });
+    }
+  });
+
+  app.get("/api/media/:id", async (req, res) => {
+    try {
+      const mediaItem = await storage.getMediaItem(req.params.id);
+      if (!mediaItem) {
+        return res.status(404).json({ message: "Media not found" });
+      }
+      res.json(mediaItem);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch media" });
+    }
+  });
+
+  app.post("/api/media", async (req, res) => {
+    try {
+      const validated = insertMediaSchema.parse(req.body);
+      const mediaItem = await storage.createMedia(validated);
+      res.status(201).json(mediaItem);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid media data" });
+    }
+  });
+
+  // Inquiry Routes
+  app.get("/api/inquiries", async (req, res) => {
+    try {
+      const inquiries = await storage.getInquiries();
+      res.json(inquiries);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch inquiries" });
+    }
+  });
+
+  app.post("/api/inquiries", async (req, res) => {
+    try {
+      const validated = insertInquirySchema.parse(req.body);
+      const inquiry = await storage.createInquiry(validated);
+      res.status(201).json(inquiry);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid inquiry data" });
+    }
+  });
+
+  app.patch("/api/inquiries/:id", async (req, res) => {
+    try {
+      const inquiry = await storage.updateInquiry(req.params.id, req.body);
+      if (!inquiry) {
+        return res.status(404).json({ message: "Inquiry not found" });
+      }
+      res.json(inquiry);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update inquiry" });
+    }
+  });
+
+  // Brand Assets Routes
+  app.get("/api/brand-assets", async (req, res) => {
+    try {
+      const { sponsorId } = req.query;
+      if (!sponsorId || typeof sponsorId !== 'string') {
+        return res.status(400).json({ message: "sponsorId required" });
+      }
+      const assets = await storage.getBrandAssets(sponsorId);
+      res.json(assets);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch brand assets" });
+    }
+  });
+
+  app.post("/api/brand-assets", async (req, res) => {
+    try {
+      const validated = insertBrandAssetSchema.parse(req.body);
+      const asset = await storage.createBrandAsset(validated);
+      res.status(201).json(asset);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid brand asset data" });
     }
   });
 

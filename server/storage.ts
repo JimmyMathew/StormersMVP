@@ -11,12 +11,30 @@ import {
   type InsertMatch,
   type MatchStats,
   type InsertMatchStats,
+  type Product,
+  type InsertProduct,
+  type Order,
+  type InsertOrder,
+  type Court,
+  type InsertCourt,
+  type Media,
+  type InsertMedia,
+  type Inquiry,
+  type InsertInquiry,
+  type BrandAsset,
+  type InsertBrandAsset,
   users,
   tournaments,
   teams,
   players,
   matches,
-  matchStats
+  matchStats,
+  products,
+  orders,
+  courts,
+  media,
+  inquiries,
+  brandAssets
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -53,6 +71,33 @@ export interface IStorage {
   getMatchStatsByMatch(matchId: string): Promise<MatchStats[]>;
   createMatchStats(stats: InsertMatchStats): Promise<MatchStats>;
   updateMatchStats(id: string, stats: Partial<MatchStats>): Promise<MatchStats | undefined>;
+
+  getProducts(): Promise<Product[]>;
+  getProduct(id: string): Promise<Product | undefined>;
+  createProduct(product: InsertProduct): Promise<Product>;
+  updateProduct(id: string, product: Partial<Product>): Promise<Product | undefined>;
+
+  getOrders(): Promise<Order[]>;
+  getOrder(id: string): Promise<Order | undefined>;
+  createOrder(order: InsertOrder): Promise<Order>;
+
+  getCourts(): Promise<Court[]>;
+  getCourt(id: string): Promise<Court | undefined>;
+  createCourt(court: InsertCourt): Promise<Court>;
+  updateCourt(id: string, court: Partial<Court>): Promise<Court | undefined>;
+
+  getMedia(): Promise<Media[]>;
+  getMediaByTournament(tournamentId: string): Promise<Media[]>;
+  getMediaItem(id: string): Promise<Media | undefined>;
+  createMedia(media: InsertMedia): Promise<Media>;
+
+  getInquiries(): Promise<Inquiry[]>;
+  getInquiry(id: string): Promise<Inquiry | undefined>;
+  createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
+  updateInquiry(id: string, inquiry: Partial<Inquiry>): Promise<Inquiry | undefined>;
+
+  getBrandAssets(sponsorId: string): Promise<BrandAsset[]>;
+  createBrandAsset(asset: InsertBrandAsset): Promise<BrandAsset>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -220,6 +265,152 @@ export class DatabaseStorage implements IStorage {
       .where(eq(matchStats.id, id))
       .returning();
     return stats || undefined;
+  }
+
+  async getProducts(): Promise<Product[]> {
+    return await db.select().from(products);
+  }
+
+  async getProduct(id: string): Promise<Product | undefined> {
+    const [product] = await db.select().from(products).where(eq(products.id, id));
+    return product || undefined;
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const [product] = await db
+      .insert(products)
+      .values({
+        ...insertProduct,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return product;
+  }
+
+  async updateProduct(id: string, updates: Partial<Product>): Promise<Product | undefined> {
+    const [product] = await db
+      .update(products)
+      .set(updates)
+      .where(eq(products.id, id))
+      .returning();
+    return product || undefined;
+  }
+
+  async getOrders(): Promise<Order[]> {
+    return await db.select().from(orders);
+  }
+
+  async getOrder(id: string): Promise<Order | undefined> {
+    const [order] = await db.select().from(orders).where(eq(orders.id, id));
+    return order || undefined;
+  }
+
+  async createOrder(insertOrder: InsertOrder): Promise<Order> {
+    const [order] = await db
+      .insert(orders)
+      .values({
+        ...insertOrder,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return order;
+  }
+
+  async getCourts(): Promise<Court[]> {
+    return await db.select().from(courts);
+  }
+
+  async getCourt(id: string): Promise<Court | undefined> {
+    const [court] = await db.select().from(courts).where(eq(courts.id, id));
+    return court || undefined;
+  }
+
+  async createCourt(insertCourt: InsertCourt): Promise<Court> {
+    const [court] = await db
+      .insert(courts)
+      .values({
+        ...insertCourt,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return court;
+  }
+
+  async updateCourt(id: string, updates: Partial<Court>): Promise<Court | undefined> {
+    const [court] = await db
+      .update(courts)
+      .set(updates)
+      .where(eq(courts.id, id))
+      .returning();
+    return court || undefined;
+  }
+
+  async getMedia(): Promise<Media[]> {
+    return await db.select().from(media);
+  }
+
+  async getMediaByTournament(tournamentId: string): Promise<Media[]> {
+    return await db.select().from(media).where(eq(media.tournamentId, tournamentId));
+  }
+
+  async getMediaItem(id: string): Promise<Media | undefined> {
+    const [mediaItem] = await db.select().from(media).where(eq(media.id, id));
+    return mediaItem || undefined;
+  }
+
+  async createMedia(insertMedia: InsertMedia): Promise<Media> {
+    const [mediaItem] = await db
+      .insert(media)
+      .values({
+        ...insertMedia,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return mediaItem;
+  }
+
+  async getInquiries(): Promise<Inquiry[]> {
+    return await db.select().from(inquiries);
+  }
+
+  async getInquiry(id: string): Promise<Inquiry | undefined> {
+    const [inquiry] = await db.select().from(inquiries).where(eq(inquiries.id, id));
+    return inquiry || undefined;
+  }
+
+  async createInquiry(insertInquiry: InsertInquiry): Promise<Inquiry> {
+    const [inquiry] = await db
+      .insert(inquiries)
+      .values({
+        ...insertInquiry,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return inquiry;
+  }
+
+  async updateInquiry(id: string, updates: Partial<Inquiry>): Promise<Inquiry | undefined> {
+    const [inquiry] = await db
+      .update(inquiries)
+      .set(updates)
+      .where(eq(inquiries.id, id))
+      .returning();
+    return inquiry || undefined;
+  }
+
+  async getBrandAssets(sponsorId: string): Promise<BrandAsset[]> {
+    return await db.select().from(brandAssets).where(eq(brandAssets.sponsorId, sponsorId));
+  }
+
+  async createBrandAsset(insertAsset: InsertBrandAsset): Promise<BrandAsset> {
+    const [asset] = await db
+      .insert(brandAssets)
+      .values({
+        ...insertAsset,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return asset;
   }
 }
 

@@ -12,6 +12,9 @@ import DashboardRouter from "@/pages/DashboardRouter";
 import MerchShop from "@/pages/MerchShop";
 import TournamentsPage from "@/pages/TournamentsPage";
 import TournamentDetailPage from "@/pages/TournamentDetailPage";
+import CourtsPage from "@/pages/CourtsPage";
+import MediaHubPage from "@/pages/MediaHubPage";
+import DevelopmentCenterPage from "@/pages/DevelopmentCenterPage";
 import NotFound from "@/pages/not-found";
 
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
@@ -48,6 +51,15 @@ function Router() {
       </Route>
       <Route path="/tournaments/:id">
         <ProtectedRoute component={TournamentDetailPage} />
+      </Route>
+      <Route path="/courts">
+        <ProtectedRoute component={CourtsPage} />
+      </Route>
+      <Route path="/media">
+        <ProtectedRoute component={MediaHubPage} />
+      </Route>
+      <Route path="/development">
+        <ProtectedRoute component={DevelopmentCenterPage} />
       </Route>
       <Route path="/">
         {isAuthenticated ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}

@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import StatCard from '@/components/StatCard';
 import TournamentCard from '@/components/TournamentCard';
+import SponsorInquiryForm from '@/components/SponsorInquiryForm';
 import { Eye, TrendingUp, ShoppingBag, Users } from 'lucide-react';
 
 export default function SponsorDashboard() {
@@ -47,17 +48,17 @@ export default function SponsorDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <Card className="p-6">
-          <h2 className="text-xl font-display font-semibold mb-4">Brand Assets</h2>
-          <p className="text-muted-foreground mb-4">Upload logos, banners, and promotional materials</p>
-          <Button className="w-full" data-testid="button-upload-assets">Upload New Asset</Button>
-        </Card>
+        <SponsorInquiryForm 
+          type="corporate"
+          title="Corporate Services"
+          description="Inquire about custom sponsorship packages, court branding opportunities, and event partnerships"
+        />
 
-        <Card className="p-6">
-          <h2 className="text-xl font-display font-semibold mb-4">Corporate Inquiry</h2>
-          <p className="text-muted-foreground mb-4">Get in touch for custom sponsorship packages</p>
-          <Button variant="outline" className="w-full" data-testid="button-contact-sales">Contact Sales Team</Button>
-        </Card>
+        <SponsorInquiryForm 
+          type="b2b"
+          title="B2B Partnerships"
+          description="Connect with our team for business-to-business collaborations and strategic partnerships"
+        />
       </div>
 
       <div className="mb-4">

@@ -1,0 +1,63 @@
+Tech Stack
+- Frontend: React (with Bootstrap 5, HTML5, CSS/SCSS)
+- Backend: Express.js (Node.js)
+- Data: In-memory arrays or JSON files
+- Goal: Build a dynamic, modular MVP with full functionality and mock data
+
+🔐 Module 1: Authentication & Role Management
+AI Prompt:
+Build a React login page with email and Google login (mocked). After login, redirect users to role-based dashboards: Player, Sponsor, Organizer. Use React Context or Redux for session state. Create a role selector component. Backend: Express.js API with endpoints for login and role assignment using mock user profiles stored in memory.
+
+
+💼 Module 3: Sponsor Portal
+AI Prompt:
+Build a React sponsor dashboard showing active tournaments and mock engagement metrics (attendance, merch sales). Include:
+- Upload form for brand assets (mocked)
+- Corporate services inquiry form
+- Contact form for B2B outreach Use React state for sponsor session and campaign data. Backend: Express.js API with endpoints for sponsor profiles, metrics, and inquiries.
+
+
+🛍️ Module 4: Merchandise Shop
+AI Prompt:
+Create a React merch shop with product catalog, shopping cart, and mock checkout flow. Include:
+- Product listing component with filters
+- Cart component with add/remove/update
+- Checkout confirmation page
+- Sales dashboard for sponsors Use React Context or Redux for cart state and mock orders. Backend: Express.js API with endpoints for products, orders, and sales stats.
+
+
+🧑‍🎓 Module 5: Development Center
+AI Prompt:
+Build a React module for youth development. Include:
+- Player registration form
+- Match stat logging component
+- Player dashboard showing performance history Integrate with tournament module to fetch match data. Use React state and mock player profiles. Backend: Express.js API with endpoints for player CRUD and stat logs.
+
+
+🏟️ Module 6: Training Hall (2026 Prep)
+AI Prompt:
+Create a React court map module. Include:
+- Static map with geo-tagged court pins
+- Court profile component with name, location, availability
+- Filters by university or city
+- Booking/contact info links (mocked)
+- Sponsor visibility metrics per court Use React state and mock court data. Backend: Express.js API with endpoints for court profiles and visibility logs.
+
+
+🏠 Module 7: Dual Dashboard
+AI Prompt:
+Build two React dashboards:
+- User dashboard: tournament calendar, team rankings, court access
+- Sponsor dashboard: tournament overview, engagement stats, merch summary Use role-based routing and conditional rendering. Backend: Express.js API with endpoints for dashboard data and role-based views.
+
+
+🎥 Module 8: Media Hub
+AI Prompt:
+Create a React media hub with:
+- Upload form for match videos/photos (mocked)
+- Gallery view with filters by tournament, team, sponsor
+- Tagging system for media items
+- Shareable links (mock URLs) Use React state and mock media collection. Backend: Express.js API with endpoints for media CRUD and metadata.
+
+
+

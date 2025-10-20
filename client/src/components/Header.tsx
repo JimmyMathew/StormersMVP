@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, LogOut, Trophy, LayoutDashboard, Store } from 'lucide-react';
+import { ShoppingCart, LogOut, Trophy, LayoutDashboard, Store, MapPin, Film, TrendingUp } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import ThemeToggle from './ThemeToggle';
@@ -17,6 +17,9 @@ export default function Header() {
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/tournaments', label: 'Tournaments', icon: Trophy },
+    { href: '/courts', label: 'Courts', icon: MapPin },
+    ...(user.role === 'Player' ? [{ href: '/development', label: 'Training', icon: TrendingUp }] : []),
+    { href: '/media', label: 'Media', icon: Film },
     ...(user.role !== 'Organizer' ? [{ href: '/shop', label: 'Shop', icon: Store }] : []),
   ];
 
