@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Summer Slam 2025",
+    "location": "Toulouse City Center",
+    "date": "2025-07-15",
+    "format": "single-elimination",
+    "maxTeams": 16,
+    "status": "upcoming",
+    "prizePool": 5000
+  },
+  {
+    "name": "Autumn Challenge 2024",
+    "location": "Paul Sabatier Campus",
+    "date": "2024-10-20",
+    "format": "round-robin",
+    "maxTeams": 8,
+    "status": "completed",
+    "prizePool": 2500
+  },
+  {
+    "name": "Winter Hoops Fest",
+    "location": "Jean Jaurès Arena",
+    "date": "2025-12-10",
+    "format": "single-elimination",
+    "maxTeams": 32,
+    "status": "registration",
+    "prizePool": 10000
+  }
+]

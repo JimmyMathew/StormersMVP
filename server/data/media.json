@@ -1,0 +1,42 @@
+[
+  {
+    "type": "video",
+    "title": "Summer Slam 2024 Highlights",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop",
+    "tournamentId": null,
+    "tags": "highlights,2024,summer",
+    "uploadedBy": "Admin",
+    "views": 1250
+  },
+  {
+    "type": "photo",
+    "title": "Championship Game Action Shot",
+    "url": "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=300&fit=crop",
+    "tournamentId": null,
+    "tags": "championship,action,sports",
+    "uploadedBy": "Admin",
+    "views": 856
+  },
+  {
+    "type": "video",
+    "title": "Player Skills Training Session",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop",
+    "tournamentId": null,
+    "tags": "training,skills,development",
+    "uploadedBy": "Coach",
+    "views": 432
+  },
+  {
+    "type": "photo",
+    "title": "Team Photo - Stormers 2024",
+    "url": "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&h=300&fit=crop",
+    "tournamentId": null,
+    "tags": "team,group,stormers",
+    "uploadedBy": "Admin",
+    "views": 692
+  }
+]

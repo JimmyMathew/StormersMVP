@@ -1,0 +1,29 @@
+[
+  {
+    "companyName": "Nike France",
+    "contactName": "Pierre Dubois",
+    "email": "p.dubois@nike.fr",
+    "phone": "+33 6 12 34 56 78",
+    "inquiryType": "sponsorship",
+    "message": "Interested in sponsoring the Summer Slam tournament series",
+    "status": "pending"
+  },
+  {
+    "companyName": "Red Bull",
+    "contactName": "Maria Santos",
+    "email": "m.santos@redbull.com",
+    "phone": "+33 6 98 76 54 32",
+    "inquiryType": "partnership",
+    "message": "Looking to partner for energy drink distribution at events",
+    "status": "contacted"
+  },
+  {
+    "companyName": "Decathlon Toulouse",
+    "contactName": "Jean Martin",
+    "email": "jean.martin@decathlon.com",
+    "phone": "+33 5 61 12 34 56",
+    "inquiryType": "merchandise",
+    "message": "Want to discuss exclusive merchandise partnership",
+    "status": "pending"
+  }
+]

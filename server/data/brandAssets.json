@@ -1,0 +1,26 @@
+[
+  {
+    "sponsorName": "Nike",
+    "assetType": "logo",
+    "assetUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=100&fit=crop",
+    "placement": "header",
+    "impressions": 15000,
+    "clicks": 450
+  },
+  {
+    "sponsorName": "Red Bull",
+    "assetType": "banner",
+    "assetUrl": "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=800&h=200&fit=crop",
+    "placement": "sidebar",
+    "impressions": 12000,
+    "clicks": 380
+  },
+  {
+    "sponsorName": "Decathlon",
+    "assetType": "logo",
+    "assetUrl": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=200&h=100&fit=crop",
+    "placement": "footer",
+    "impressions": 9500,
+    "clicks": 215
+  }
+]

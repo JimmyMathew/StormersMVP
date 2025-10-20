@@ -131,7 +131,14 @@ Preferred communication style: Simple, everyday language.
 - Connection pooling via `@neondatabase/serverless`
 - Database URL required via environment variable `DATABASE_URL`
 - SSL configuration: Development mode disables certificate validation for Neon connection (NODE_TLS_REJECT_UNAUTHORIZED=0)
-- Seeded with 6 products and 6 courts for demo/testing purposes
+
+### Data Persistence System
+- **JSON-based permanent storage**: All initial data stored in `server/data/*.json` files
+- **Auto-seeding**: Server automatically loads JSON data into PostgreSQL on first startup
+- **Version controlled**: Data changes tracked in Git for consistency across environments
+- **Manual re-seed**: Run `npm run db:reseed` to clear database and reload from JSON files
+- **Data modules**: products (6), courts (6), tournaments (3), teams (4), players (4), media (4), inquiries (3), brand assets (3)
+- **Dynamic data**: Court visibility logs auto-generated for last 31 days based on sponsor metrics
 
 ### UI Libraries
 - **Radix UI**: Unstyled, accessible component primitives (dialog, dropdown, tooltip, tabs, etc.)

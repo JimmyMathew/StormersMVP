@@ -232,6 +232,34 @@ export const insertCourtSchema = createInsertSchema(courts).omit({
 export type InsertCourt = z.infer<typeof insertCourtSchema>;
 export type Court = typeof courts.$inferSelect;
 
+export const courtVisibilityLogs = pgTable("court_visibility_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  courtId: varchar("court_id").notNull(),
+  date: text("date").notNull(),
+  views: integer("views").notNull().default(0),
+  uniqueVisitors: integer("unique_visitors").notNull().default(0),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertCourtVisibilityLogSchema = createInsertSchema(courtVisibilityLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertCourtVisibilityLog = z.infer<typeof insertCourtVisibilityLogSchema>;
+export type CourtVisibilityLog = typeof courtVisibilityLogs.$inferSelect;
+
+export const courtsRelations = relations(courts, ({ many }) => ({
+  visibilityLogs: many(courtVisibilityLogs),
+}));
+
+export const courtVisibilityLogsRelations = relations(courtVisibilityLogs, ({ one }) => ({
+  court: one(courts, {
+    fields: [courtVisibilityLogs.courtId],
+    references: [courts.id],
+  }),
+}));
+
 // Media Module Schemas
 export const media = pgTable("media", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),

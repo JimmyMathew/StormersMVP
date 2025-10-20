@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Thunder Dunks",
+    "tournamentId": null,
+    "wins": 5,
+    "losses": 2
+  },
+  {
+    "name": "Sky Shooters",
+    "tournamentId": null,
+    "wins": 4,
+    "losses": 3
+  },
+  {
+    "name": "Court Kings",
+    "tournamentId": null,
+    "wins": 6,
+    "losses": 1
+  },
+  {
+    "name": "Hoop Dreams",
+    "tournamentId": null,
+    "wins": 3,
+    "losses": 4
+  }
+]

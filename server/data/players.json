@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Marcus Johnson",
+    "teamId": null,
+    "jerseyNumber": 23,
+    "position": "Forward",
+    "totalPoints": 156,
+    "totalAssists": 42,
+    "totalRebounds": 67
+  },
+  {
+    "name": "Alex Martinez",
+    "teamId": null,
+    "jerseyNumber": 10,
+    "position": "Guard",
+    "totalPoints": 128,
+    "totalAssists": 58,
+    "totalRebounds": 34
+  },
+  {
+    "name": "Jordan Chen",
+    "teamId": null,
+    "jerseyNumber": 7,
+    "position": "Center",
+    "totalPoints": 142,
+    "totalAssists": 28,
+    "totalRebounds": 89
+  },
+  {
+    "name": "Sarah Williams",
+    "teamId": null,
+    "jerseyNumber": 15,
+    "position": "Guard",
+    "totalPoints": 134,
+    "totalAssists": 52,
+    "totalRebounds": 41
+  }
+]

@@ -10,6 +10,7 @@ import {
   insertProductSchema,
   insertOrderSchema,
   insertCourtSchema,
+  insertCourtVisibilityLogSchema,
   insertMediaSchema,
   insertInquirySchema,
   insertBrandAssetSchema
@@ -379,6 +380,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(court);
     } catch (error) {
       res.status(400).json({ message: "Invalid court data" });
+    }
+  });
+
+  app.get("/api/courts/:id/visibility-logs", async (req, res) => {
+    try {
+      const logs = await storage.getCourtVisibilityLogs(req.params.id);
+      res.json(logs);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch visibility logs" });
+    }
+  });
+
+  app.post("/api/courts/:id/visibility-logs", async (req, res) => {
+    try {
+      const validated = insertCourtVisibilityLogSchema.parse({
+        ...req.body,
+        courtId: req.params.id
+      });
+      const log = await storage.createCourtVisibilityLog(validated);
+      res.status(201).json(log);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid visibility log data" });
     }
   });
 

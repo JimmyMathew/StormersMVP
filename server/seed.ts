@@ -1,143 +1,112 @@
 import { storage } from "./storage";
+import { promises as fs } from "fs";
+import { join } from "path";
+
+async function loadJSON<T>(filename: string): Promise<T> {
+  const filePath = join(__dirname, "data", filename);
+  const content = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(content);
+}
 
 async function seed() {
-  console.log("Seeding database...");
+  console.log("Checking if database needs seeding...");
+
+  // Check if data already exists
+  const existingProducts = await storage.getProducts();
+  if (existingProducts.length > 0) {
+    console.log("Database already seeded. Skipping...");
+    return;
+  }
+
+  console.log("Seeding database from JSON files...");
 
   // Seed Products
-  const products = [
-    {
-      name: "Team Jersey",
-      description: "Official Stormers360 tournament jersey with breathable fabric",
-      price: 4599,
-      category: "Apparel",
-      image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=400&fit=crop",
-      inStock: 1
-    },
-    {
-      name: "Basketball",
-      description: "Official 3x3 basketball - FIBA approved",
-      price: 2999,
-      category: "Equipment",
-      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=400&fit=crop",
-      inStock: 1
-    },
-    {
-      name: "Sweatband Set",
-      description: "Sweat-wicking headband and wristband combo",
-      price: 1299,
-      category: "Accessories",
-      image: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop",
-      inStock: 0
-    },
-    {
-      name: "Hoops Cap",
-      description: "Adjustable basketball cap with Stormers360 logo",
-      price: 2499,
-      category: "Apparel",
-      image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=400&fit=crop",
-      inStock: 1
-    },
-    {
-      name: "Training Shorts",
-      description: "Performance athletic shorts with deep pockets",
-      price: 3499,
-      category: "Apparel",
-      image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop",
-      inStock: 1
-    },
-    {
-      name: "Water Bottle",
-      description: "Insulated 1L water bottle - keeps drinks cold",
-      price: 1599,
-      category: "Accessories",
-      image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=400&fit=crop",
-      inStock: 1
-    },
-  ];
-
+  const products = await loadJSON<any[]>("products.json");
   for (const product of products) {
     await storage.createProduct(product);
   }
-
-  console.log(`Created ${products.length} products`);
+  console.log(`✓ Created ${products.length} products`);
 
   // Seed Courts
-  const courts = [
-    {
-      name: "Campus Central Court",
-      location: "University Paul Sabatier",
-      university: "Paul Sabatier",
-      city: "Toulouse",
-      latitude: "43.5617",
-      longitude: "1.4658",
-      availability: "available",
-      contactInfo: "contact@paul-sabatier.fr",
-      sponsorVisibility: 1250
-    },
-    {
-      name: "Jean Jaurès Basketball Arena",
-      location: "Place Jean Jaurès",
-      university: null,
-      city: "Toulouse",
-      latitude: "43.6083",
-      longitude: "1.4483",
-      availability: "available",
-      contactInfo: "jeanjau res@toulouse.fr",
-      sponsorVisibility: 2100
-    },
-    {
-      name: "Capitole Court",
-      location: "University of Toulouse Capitole",
-      university: "Toulouse Capitole",
-      city: "Toulouse",
-      latitude: "43.6045",
-      longitude: "1.4440",
-      availability: "available",
-      contactInfo: "sports@ut-capitole.fr",
-      sponsorVisibility: 980
-    },
-    {
-      name: "INSA Sports Complex",
-      location: "INSA Toulouse",
-      university: "INSA",
-      city: "Toulouse",
-      latitude: "43.5697",
-      longitude: "1.4647",
-      availability: "booked",
-      contactInfo: "sports@insa-toulouse.fr",
-      sponsorVisibility: 1560
-    },
-    {
-      name: "Mirail University Courts",
-      location: "University of Toulouse-Jean Jaurès",
-      university: "Jean Jaurès",
-      city: "Toulouse",
-      latitude: "43.5796",
-      longitude: "1.4027",
-      availability: "available",
-      contactInfo: "sports@univ-tlse2.fr",
-      sponsorVisibility: 850
-    },
-    {
-      name: "Purpan Outdoor Court",
-      location: "Campus Purpan",
-      university: "ENVT",
-      city: "Toulouse",
-      latitude: "43.6123",
-      longitude: "1.3993",
-      availability: "available",
-      contactInfo: "purpan@envt.fr",
-      sponsorVisibility: 650
-    }
-  ];
-
+  const courts = await loadJSON<any[]>("courts.json");
   for (const court of courts) {
     await storage.createCourt(court);
   }
+  console.log(`✓ Created ${courts.length} courts`);
 
-  console.log(`Created ${courts.length} courts`);
+  // Seed Tournaments
+  const tournaments = await loadJSON<any[]>("tournaments.json");
+  for (const tournament of tournaments) {
+    await storage.createTournament(tournament);
+  }
+  console.log(`✓ Created ${tournaments.length} tournaments`);
 
-  console.log("Seeding complete!");
+  // Seed Teams
+  const teams = await loadJSON<any[]>("teams.json");
+  for (const team of teams) {
+    await storage.createTeam(team);
+  }
+  console.log(`✓ Created ${teams.length} teams`);
+
+  // Seed Players
+  const players = await loadJSON<any[]>("players.json");
+  for (const player of players) {
+    await storage.createPlayer(player);
+  }
+  console.log(`✓ Created ${players.length} players`);
+
+  // Seed Media
+  const media = await loadJSON<any[]>("media.json");
+  for (const mediaItem of media) {
+    await storage.createMedia(mediaItem);
+  }
+  console.log(`✓ Created ${media.length} media items`);
+
+  // Seed Inquiries
+  const inquiries = await loadJSON<any[]>("inquiries.json");
+  for (const inquiry of inquiries) {
+    await storage.createInquiry(inquiry);
+  }
+  console.log(`✓ Created ${inquiries.length} inquiries`);
+
+  // Seed Brand Assets
+  const brandAssets = await loadJSON<any[]>("brandAssets.json");
+  for (const asset of brandAssets) {
+    await storage.createBrandAsset(asset);
+  }
+  console.log(`✓ Created ${brandAssets.length} brand assets`);
+
+  // Generate Court Visibility Logs (last 31 days)
+  const courtsList = await storage.getCourts();
+  const visibilityLogsToCreate = [];
+  const today = new Date();
+  
+  for (const court of courtsList) {
+    for (let i = 30; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split('T')[0];
+      
+      const baseViews = Math.floor(court.sponsorVisibility / 30);
+      const variation = Math.floor(Math.random() * 20) - 10;
+      const views = Math.max(baseViews + variation, 5);
+      const uniqueVisitors = Math.floor(views * 0.7);
+
+      visibilityLogsToCreate.push({
+        courtId: court.id,
+        date: dateStr,
+        views,
+        uniqueVisitors
+      });
+    }
+  }
+
+  for (const log of visibilityLogsToCreate) {
+    await storage.createCourtVisibilityLog(log);
+  }
+  console.log(`✓ Created ${visibilityLogsToCreate.length} visibility logs`);
+
+  console.log("✅ Database seeding complete!");
 }
 
-seed().catch(console.error);
+export { seed };

@@ -17,6 +17,8 @@ import {
   type InsertOrder,
   type Court,
   type InsertCourt,
+  type CourtVisibilityLog,
+  type InsertCourtVisibilityLog,
   type Media,
   type InsertMedia,
   type Inquiry,
@@ -32,6 +34,7 @@ import {
   products,
   orders,
   courts,
+  courtVisibilityLogs,
   media,
   inquiries,
   brandAssets
@@ -85,6 +88,8 @@ export interface IStorage {
   getCourt(id: string): Promise<Court | undefined>;
   createCourt(court: InsertCourt): Promise<Court>;
   updateCourt(id: string, court: Partial<Court>): Promise<Court | undefined>;
+  getCourtVisibilityLogs(courtId: string): Promise<CourtVisibilityLog[]>;
+  createCourtVisibilityLog(log: InsertCourtVisibilityLog): Promise<CourtVisibilityLog>;
 
   getMedia(): Promise<Media[]>;
   getMediaByTournament(tournamentId: string): Promise<Media[]>;
@@ -343,6 +348,24 @@ export class DatabaseStorage implements IStorage {
       .where(eq(courts.id, id))
       .returning();
     return court || undefined;
+  }
+
+  async getCourtVisibilityLogs(courtId: string): Promise<CourtVisibilityLog[]> {
+    return await db
+      .select()
+      .from(courtVisibilityLogs)
+      .where(eq(courtVisibilityLogs.courtId, courtId));
+  }
+
+  async createCourtVisibilityLog(insertLog: InsertCourtVisibilityLog): Promise<CourtVisibilityLog> {
+    const [log] = await db
+      .insert(courtVisibilityLogs)
+      .values({
+        ...insertLog,
+        createdAt: new Date().toISOString()
+      })
+      .returning();
+    return log;
   }
 
   async getMedia(): Promise<Media[]> {

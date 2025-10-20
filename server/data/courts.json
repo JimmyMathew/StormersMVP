@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Campus Central Court",
+    "location": "University Paul Sabatier",
+    "university": "Paul Sabatier",
+    "city": "Toulouse",
+    "latitude": "43.5617",
+    "longitude": "1.4658",
+    "availability": "available",
+    "contactInfo": "contact@paul-sabatier.fr",
+    "sponsorVisibility": 1250
+  },
+  {
+    "name": "Jean Jaurès Basketball Arena",
+    "location": "Place Jean Jaurès",
+    "university": null,
+    "city": "Toulouse",
+    "latitude": "43.6083",
+    "longitude": "1.4483",
+    "availability": "available",
+    "contactInfo": "jeanjau@toulouse.fr",
+    "sponsorVisibility": 2100
+  },
+  {
+    "name": "Capitole Court",
+    "location": "University of Toulouse Capitole",
+    "university": "Toulouse Capitole",
+    "city": "Toulouse",
+    "latitude": "43.6045",
+    "longitude": "1.4440",
+    "availability": "available",
+    "contactInfo": "sports@ut-capitole.fr",
+    "sponsorVisibility": 980
+  },
+  {
+    "name": "INSA Sports Complex",
+    "location": "INSA Toulouse",
+    "university": "INSA",
+    "city": "Toulouse",
+    "latitude": "43.5697",
+    "longitude": "1.4647",
+    "availability": "booked",
+    "contactInfo": "sports@insa-toulouse.fr",
+    "sponsorVisibility": 1560
+  },
+  {
+    "name": "Mirail University Courts",
+    "location": "University of Toulouse-Jean Jaurès",
+    "university": "Jean Jaurès",
+    "city": "Toulouse",
+    "latitude": "43.5796",
+    "longitude": "1.4027",
+    "availability": "available",
+    "contactInfo": "sports@univ-tlse2.fr",
+    "sponsorVisibility": 850
+  },
+  {
+    "name": "Purpan Outdoor Court",
+    "location": "Campus Purpan",
+    "university": "ENVT",
+    "city": "Toulouse",
+    "latitude": "43.6117",
+    "longitude": "1.3972",
+    "availability": "available",
+    "contactInfo": "envt@purpan.fr",
+    "sponsorVisibility": 1100
+  }
+]
