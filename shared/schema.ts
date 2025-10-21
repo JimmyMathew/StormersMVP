@@ -41,7 +41,7 @@ export const teams = pgTable("teams", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
   university: text("university"),
-  tournamentId: varchar("tournament_id").notNull(),
+  tournamentId: varchar("tournament_id"),
   wins: integer("wins").notNull().default(0),
   losses: integer("losses").notNull().default(0),
 });

@@ -1,6 +1,10 @@
 import { storage } from "./storage";
 import { promises as fs } from "fs";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 async function loadJSON<T>(filename: string): Promise<T> {
   const filePath = join(__dirname, "data", filename);
